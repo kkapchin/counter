@@ -1,25 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Header from "./components/header/header";
+import SuperButton from "./components/super-button/super-button";
+import {Button, Counter, COUNTER_STEP} from "./const";
 
 function App() {
+
+  const [counter, setCounter] = useState<number>(Counter.DEFAULT);
+
+  const increaseCounter = () => {
+    counter < Counter.MAX &&
+    setCounter(counter + COUNTER_STEP);
+  }
+
+  const decreaseCounter = () => {
+    counter > Counter.DEFAULT &&
+    setCounter(counter - COUNTER_STEP);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <Header counter={counter}/>
+        <SuperButton
+            title={Button.INCREASE}
+            callback={increaseCounter}
+            disabled={counter === Counter.MAX}
+        />
+        <SuperButton
+            title={Button.DECREASE}
+            callback={decreaseCounter}
+            disabled={counter === Counter.DEFAULT}
+        />
+      </div>
   );
 }
 
