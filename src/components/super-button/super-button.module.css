@@ -1,0 +1,9 @@
+.btn__default {
+    cursor: pointer;
+    font-size: 45px;
+    margin: 5px;
+    width: 90px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
