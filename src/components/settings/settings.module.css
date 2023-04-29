@@ -1,0 +1,26 @@
+.wrap {
+    text-align: center;
+    background-color: lightblue;
+    width: 300px;
+    border-radius: 5px;
+    margin: 10px;
+    padding-top: 37px;
+}
+
+.wrap button {
+    margin-top: 38px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container h5 {
+    margin: 5px;
+    width: 150px;
+}
+
+.container input {
+    margin: 5px;
+}
