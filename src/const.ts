@@ -6,6 +6,7 @@ export enum Value {
 export enum Button {
     INCREASE = 'inc',
     DECREASE = 'dec',
+    RESET = '↻',
 }
 
 export const COUNTER_STEP = 1;

@@ -17,12 +17,15 @@ function App() {
         setCounter(counter - COUNTER_STEP);
     }
 
+    const resetCounter = () => setCounter(Value.DEFAULT);
+
     return (
         <div className="App">
             <Counter
                 counter={counter}
                 increaseCounter={increaseCounter}
                 decreaseCounter={decreaseCounter}
+                resetCounter={resetCounter}
             />
         </div>
     );

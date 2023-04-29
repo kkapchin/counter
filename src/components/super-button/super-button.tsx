@@ -4,7 +4,7 @@ import {Button} from "../../const";
 type PropsType = {
     title: Button
     callback: () => void
-    disabled: boolean
+    disabled?: boolean
 }
 
 export default function SuperButton ({ title, callback, disabled }: PropsType) {
