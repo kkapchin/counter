@@ -1,6 +1,6 @@
 import React from "react";
 import s from './header.module.css';
-import {Counter} from "../../const";
+import {Value} from "../../const";
 
 type PropsType = {
     counter: number
@@ -8,7 +8,7 @@ type PropsType = {
 
 export default function Header({ counter }: PropsType) {
 
-    const style = `${s.main__header} ${counter === Counter.MAX && s.red}`;
+    const style = `${s.main__header} ${counter === Value.MAX && s.red}`;
 
     return (
         <h1 className={style}>{counter}</h1>

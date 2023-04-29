@@ -1,4 +1,4 @@
-export enum Counter {
+export enum Value {
     DEFAULT = 0,
     MAX = 5,
 }

@@ -1,38 +1,31 @@
 import React, {useState} from 'react';
 import './App.css';
-import Header from "./components/header/header";
-import SuperButton from "./components/super-button/super-button";
-import {Button, Counter, COUNTER_STEP} from "./const";
+import {Value, COUNTER_STEP} from "./const";
+import Counter from "./components/counter/counter";
 
 function App() {
 
-  const [counter, setCounter] = useState<number>(Counter.DEFAULT);
+    const [counter, setCounter] = useState<number>(Value.DEFAULT);
 
-  const increaseCounter = () => {
-    counter < Counter.MAX &&
-    setCounter(counter + COUNTER_STEP);
-  }
+    const increaseCounter = () => {
+        counter < Value.MAX &&
+        setCounter(counter + COUNTER_STEP);
+    }
 
-  const decreaseCounter = () => {
-    counter > Counter.DEFAULT &&
-    setCounter(counter - COUNTER_STEP);
-  }
+    const decreaseCounter = () => {
+        counter > Value.DEFAULT &&
+        setCounter(counter - COUNTER_STEP);
+    }
 
-  return (
-      <div className="App">
-        <Header counter={counter}/>
-        <SuperButton
-            title={Button.INCREASE}
-            callback={increaseCounter}
-            disabled={counter === Counter.MAX}
-        />
-        <SuperButton
-            title={Button.DECREASE}
-            callback={decreaseCounter}
-            disabled={counter === Counter.DEFAULT}
-        />
-      </div>
-  );
+    return (
+        <div className="App">
+            <Counter
+                counter={counter}
+                increaseCounter={increaseCounter}
+                decreaseCounter={decreaseCounter}
+            />
+        </div>
+    );
 }
 
 export default App;
