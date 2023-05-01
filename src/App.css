@@ -1,6 +1,3 @@
 .App {
-  text-align: center;
-  background-color: lightblue;
-  width: 200px;
-  border-radius: 5px;
+    display: flex;
 }
