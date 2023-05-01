@@ -1,6 +1,6 @@
 import Header from "../header/header";
 import SuperButton from "../super-button/super-button";
-import {Button, Value} from "../../const";
+import {Button} from "../../const";
 import s from "./counter.module.css";
 import React from "react";
 
@@ -27,21 +27,22 @@ export default function Counter(props: PropsType) {
             <Header
                 counter={counter}
                 maxValue={maxValue}
+                minValue={minValue}
             />
             <SuperButton
                 title={Button.INCREASE}
                 callback={increaseCounter}
-                disabled={counter === maxValue}
+                disabled={counter >= maxValue}
             />
             <SuperButton
                 title={Button.DECREASE}
                 callback={decreaseCounter}
-                disabled={counter === minValue}
+                disabled={counter <= minValue}
             />
             <SuperButton
                 title={Button.RESET}
                 callback={resetCounter}
-                disabled={counter === Value.DEFAULT}
+                disabled={counter === minValue}
             />
         </div>
     )
