@@ -6,6 +6,7 @@ import {ChangeEvent} from "react";
 type PropsType = {
     minValue: number
     maxValue: number
+    counterStep: number
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
     setSettings: () => void
 }
@@ -14,6 +15,7 @@ export default function Settings(props: PropsType) {
     const {
         minValue,
         maxValue,
+        counterStep,
         onChange,
         setSettings,
     } = props;
@@ -40,6 +42,15 @@ export default function Settings(props: PropsType) {
                     type="number"
                     onChange={onChangeHandler}
                     value={minValue}
+                />
+            </div>
+            <div className={s.container}>
+                <h5>step</h5>
+                <input
+                    id="step"
+                    type="number"
+                    onChange={onChangeHandler}
+                    value={counterStep}
                 />
             </div>
             <SuperButton title={Button.SET} callback={setSettings}/>
