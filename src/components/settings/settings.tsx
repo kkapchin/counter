@@ -1,5 +1,5 @@
 import SuperButton from "../super-button/super-button";
-import {Button} from "../../const";
+import {Button, InputId} from "../../const";
 import s from "./settings.module.css";
 import {ChangeEvent} from "react";
 
@@ -7,6 +7,7 @@ type PropsType = {
     minValue: number
     maxValue: number
     counterStep: number
+    errorId: InputId
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
     setSettings: () => void
 }
@@ -16,9 +17,14 @@ export default function Settings(props: PropsType) {
         minValue,
         maxValue,
         counterStep,
+        errorId,
         onChange,
         setSettings,
     } = props;
+
+    const maxStyle = `${s.input} ${errorId === InputId.MAX ? s.error : ''}`;
+    const minStyle = `${s.input} ${errorId === InputId.MIN ? s.error : ''}`;
+    const stepStyle = `${s.input} ${errorId === InputId.STEP ? s.error : ''}`;
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         onChange(e);
@@ -29,8 +35,9 @@ export default function Settings(props: PropsType) {
             <div className={s.container}>
                 <h5>max</h5>
                 <input
-                    id="max"
+                    id={InputId.MAX}
                     type="number"
+                    className={maxStyle}
                     onChange={onChangeHandler}
                     value={maxValue}
                 />
@@ -38,8 +45,9 @@ export default function Settings(props: PropsType) {
             <div className={s.container}>
                 <h5>min</h5>
                 <input
-                    id="min"
+                    id={InputId.MIN}
                     type="number"
+                    className={minStyle}
                     onChange={onChangeHandler}
                     value={minValue}
                 />
@@ -47,13 +55,18 @@ export default function Settings(props: PropsType) {
             <div className={s.container}>
                 <h5>step</h5>
                 <input
-                    id="step"
+                    id={InputId.STEP}
                     type="number"
+                    className={stepStyle}
                     onChange={onChangeHandler}
                     value={counterStep}
                 />
             </div>
-            <SuperButton title={Button.SET} callback={setSettings}/>
+            <SuperButton
+                title={Button.SET}
+                callback={setSettings}
+                disabled={errorId !== InputId.NONE}
+            />
         </div>
     );
 }
