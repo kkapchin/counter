@@ -18,7 +18,7 @@ function App() {
         }
         if(minValue) {
             setMin(JSON.parse(minValue));
-            setCounter(min);
+            setCounter(JSON.parse(minValue));
         }
     }, []);
 
