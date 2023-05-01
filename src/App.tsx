@@ -18,6 +18,7 @@ function App() {
         }
         if(minValue) {
             setMin(JSON.parse(minValue));
+            setCounter(min);
         }
     }, []);
 
@@ -39,7 +40,7 @@ function App() {
         setCounter(counter - COUNTER_STEP);
     }
 
-    const resetCounter = () => setCounter(Value.DEFAULT);
+    const resetCounter = () => setCounter(min);
 
     const settingsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.currentTarget.id === 'max') {
