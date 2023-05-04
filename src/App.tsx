@@ -3,15 +3,23 @@ import './App.css';
 import {Default, InputId, Notice, StorageKey} from "./const";
 import Counter from "./components/counter/counter";
 import Settings from "./components/settings/settings";
+import {ErrorType} from "./types/error-type";
+
+const DEFAULT_ERROR: ErrorType = {
+    [InputId.MAX]: false,
+    [InputId.MIN]: false,
+    [InputId.STEP]: false,
+    message: Notice.DEFAULT,
+}
 
 function App() {
 
-    const [counter, setCounter] = useState(Default.VALUE);
+    const [counter, setCounter] = useState(Default.MIN_VALUE);
     const [min, setMin] = useState(Default.MIN_VALUE);
     const [max, setMax] = useState(Default.MAX_VALUE);
     const [step, setStep] = useState(Default.STEP);
     const [notice, setNotice] = useState<Notice>(Notice.DEFAULT);
-    const [errorId, setErrorId] = useState<InputId>(InputId.NONE);
+    const [error, setError] = useState<ErrorType>(DEFAULT_ERROR);
 
     useEffect(() => {
         const maxValue = localStorage.getItem(StorageKey.MAX_VALUE);
@@ -30,29 +38,32 @@ function App() {
     }, []);
 
     useEffect(() => {
-        setErrorId(InputId.NONE);
-        if ((max <= min) || (min < Default.VALUE)) {
-            setNotice(Notice.INCORRECT_VALUE);
-            setErrorId(InputId.MIN);
-        }
-    }, [min]);
+        const newError = {...DEFAULT_ERROR};
 
-    useEffect(() => {
-        setErrorId(InputId.NONE);
-        if (max <= min) {
+        if(max <= min) {
             setNotice(Notice.INCORRECT_VALUE);
-            setErrorId(InputId.MAX);
+            newError[InputId.MAX] = true;
+            newError[InputId.MIN] = true;
         }
 
-    }, [max]);
-
-    useEffect(() => {
-        setErrorId(InputId.NONE);
-        if ((step < Default.STEP)) {
+        if(min < Default.MIN_VALUE) {
             setNotice(Notice.INCORRECT_VALUE);
-            setErrorId(InputId.STEP);
+            newError[InputId.MIN] = true;
         }
-    }, [step]);
+
+        if(max < Default.MIN_VALUE) {
+            setNotice(Notice.INCORRECT_VALUE);
+            newError[InputId.MAX] = true;
+        }
+
+        if(step < Default.STEP) {
+            setNotice(Notice.INCORRECT_VALUE);
+            newError[InputId.STEP] = true;
+        }
+
+        setError({...newError});
+
+    }, [max, min, step]);
 
     const increaseCounter = () => {
         if ((counter + step) > max) {
@@ -88,7 +99,7 @@ function App() {
     }
 
     const setSettings = () => {
-        setErrorId(InputId.NONE);
+        setError(DEFAULT_ERROR);
         setNotice(Notice.DEFAULT);
         setCounter(min);
         localStorage.setItem(StorageKey.MAX_VALUE, JSON.stringify(max));
@@ -103,7 +114,7 @@ function App() {
                 maxValue={max}
                 counterStep={step}
                 onChange={settingsChangeHandler}
-                errorId={errorId}
+                error={error}
                 setSettings={setSettings}
             />
             <Counter
