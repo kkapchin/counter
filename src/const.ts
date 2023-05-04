@@ -6,7 +6,6 @@ export enum Button {
 }
 
 export enum Default {
-    VALUE = 0,
     MAX_VALUE = 5,
     MIN_VALUE = 1,
     STEP = 1,

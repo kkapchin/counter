@@ -2,12 +2,13 @@ import SuperButton from "../super-button/super-button";
 import {Button, InputId} from "../../const";
 import s from "./settings.module.css";
 import {ChangeEvent} from "react";
+import {ErrorType} from "../../types/error-type";
 
 type PropsType = {
     minValue: number
     maxValue: number
     counterStep: number
-    errorId: InputId
+    error: ErrorType
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
     setSettings: () => void
 }
@@ -17,14 +18,16 @@ export default function Settings(props: PropsType) {
         minValue,
         maxValue,
         counterStep,
-        errorId,
+        error,
         onChange,
         setSettings,
     } = props;
 
-    const maxStyle = `${s.input} ${errorId === InputId.MAX ? s.error : ''}`;
-    const minStyle = `${s.input} ${errorId === InputId.MIN ? s.error : ''}`;
-    const stepStyle = `${s.input} ${errorId === InputId.STEP ? s.error : ''}`;
+    const maxStyle = `${s.input} ${error[InputId.MAX] ? s.error : ''}`;
+    const minStyle = `${s.input} ${error[InputId.MIN] ? s.error : ''}`;
+    const stepStyle = `${s.input} ${error[InputId.STEP] ? s.error : ''}`;
+
+    const isDisabledButton = error[InputId.MAX] || error[InputId.MIN] || error[InputId.STEP];
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         onChange(e);
@@ -65,7 +68,7 @@ export default function Settings(props: PropsType) {
             <SuperButton
                 title={Button.SET}
                 callback={setSettings}
-                disabled={errorId !== InputId.NONE}
+                disabled={isDisabledButton}
             />
         </div>
     );
